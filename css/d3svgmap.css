@@ -1,0 +1,43 @@
+﻿body {
+    font-family: Arial;
+}
+
+.d3svgControl {
+    font-size: small;
+}
+
+input.d3svgCheckbox {
+    margin-left: 10px;
+}
+
+.d3svgMapSilder {
+    position: absolute;
+    left: 40px;
+    top: 100px;
+}
+
+.ui-slider-vertical {
+    width: 5px;
+    height: 200px;
+}
+
+.ui-slider .ui-slider-handle {
+    width: 15px;
+    height: 15px;
+}
+
+.d3svgplus {
+    position: absolute;
+    left: 25px;
+    top: 68px;
+}
+
+.d3svgminus {
+    position: absolute;
+    left: 25px;
+    top: 314px;
+}
+
+label.d3svglabel{
+    margin-left: 5px;
+}

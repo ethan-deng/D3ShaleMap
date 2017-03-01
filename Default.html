@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="js/d3.v3.js" charset="utf-8"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/topojson.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+        //http://bl.ocks.org/mbostock/2374239
+        $(function () {
+
+            var svg = d3.select(".chart1")
+                .append("svg")
+                .attr("width", 960)
+                .attr("height", 500);
+
+            var projection = d3.geo.albersUsa();
+
+            //d3.json('/GeoData/GeoJson/US/gz_2010_us_outline_20m.json', function (collection) {
+            //d3.json('/GeoData/GeoJson/States/gz_2010_us_040_00_20m.json', function (collection) {
+            //d3.json('/GeoData/GeoJson/Counties/gz_2010_us_050_00_20m.json', function (collection) {
+
+            d3.json('GeoData/TopoJson/Counties/gz_2010_us_050_00_20m.js', function (collection) {
+            //d3.json('/GeoData/TopoJson/Tracts/gz_2010_11_140_00_500k.js', function (collection) {           
+
+                var features = topojson.feature(collection, collection.objects.Counties).features;
+                //var features = topojson.feature(collection, collection.objects.Tracts).features;
+                //var features = collection.features;
+
+                var zoom = d3.behavior.zoom()
+                    .translate([0, 0])
+                    .scale(1)
+                    .scaleExtent([1, 60])
+                    .size([200,300])
+                    .on("zoom", zoomed);
+
+                var group = svg.append("g");
+
+                group.selectAll('path')
+                    .data(features)
+                    .enter()
+                    .append('path')
+                    .attr('d', d3.geo.path().projection(projection))
+                    .style('fill', function (d) {
+                        return 'grey'
+                    })
+                    .style('stroke', 'white')
+                    .style('stroke-width', '0.1');
+
+                svg.append("rect")
+                    .attr("fill", "none")
+                    .attr("pointer-events", "all")
+                    .attr("width", 960)
+                    .attr("height", 500)
+                    .call(zoom);
+
+                function zoomed() {
+                    group.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                    group.select(".state-border").style("stroke-width", 1.5 / d3.event.scale + "px");
+                    group.select(".county-border").style("stroke-width", .5 / d3.event.scale + "px");
+                }
+
+            });
+
+
+            //d3.json('/GeoData/GeoJson/Tracts/gz_2010_53_140_00_500k.json', function (collection) {
+
+            //d3.json('/GeoData/TopoJson/Tracts/gz_2010_53_140_00_500k.js', function (collection) {
+            //    //var features = topojson.feature(collection, collection.objects.counties).features;
+            //    var features = topojson.feature(collection, collection.objects.Tracts).features;
+
+            //    svg.selectAll('path')
+            //        //.data(collection.features)
+            //        .data(features)
+            //        .enter().append('path')
+            //        .attr('d', d3.geo.path()) //.projection(projection))
+            //        .style('fill', function (d) {
+            //            return 'grey'
+            //        })
+            //        //.attr('id', function (d) { return d.properties.name })
+            //        .style('stroke', 'black')
+            //        .style('stroke-width', '0.5');
+            //});
+        });
+
+    </script>
+</head>
+<body>
+    <div class="chart1" style="width: 1000px; height: 550px; margin-top: 10px; overflow:hidden; border: 1px solid gray;"></div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>US Shale Gas Map</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=10, user-scalable=yes"/>
+
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/d3svgmap.css">
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $.ajaxSetup({ cache: true });
+        $.getScript("build/main.js");
+    </script>
+</head>
+<body>
+    <div class="d3svg-d3shalemap"></div>
+</body>
+</html>
